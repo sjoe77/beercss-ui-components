@@ -185,9 +185,59 @@
       padding-top: 4rem;
     }
     
+    /* Header improvements */
+    header.fixed nav {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      gap: 1rem;
+    }
+    
+    header.fixed nav button {
+      color: white;
+      border: none;
+      background: transparent;
+      padding: 0.5rem;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      min-height: 40px;
+    }
+    
+    header.fixed nav button:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    header.fixed nav button i {
+      font-size: 24px;
+      color: white;
+    }
+    
     /* Navigation improvements */
     nav.left.drawer {
       width: 300px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      background: var(--surface-container, #1c1b1f);
+      z-index: 1000;
+      overflow-y: auto;
+    }
+    
+    /* Overlay when drawer is open */
+    body[data-drawer-open="true"]::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
     }
     
     nav.left.drawer a {
@@ -238,7 +288,7 @@
   </header>
 
   <!-- Left Navigation Drawer -->
-  <nav id="nav-drawer" class="left drawer">
+  <nav id="nav-drawer" class="left drawer" style="transform: translateX(-100%); transition: transform 0.3s ease;">
     <header>
       <img class="circle medium" src="https://via.placeholder.com/80" alt="Logo">
       <h6>Components</h6>
@@ -274,30 +324,26 @@
     function toggleDrawer() {
       console.log('toggleDrawer called');
       
-      // Check if BeerCSS ui function is available
-      if (typeof ui === 'function') {
-        console.log('Using BeerCSS ui function');
-        ui('nav-drawer');
-      } else if (window.ui && typeof window.ui === 'function') {
-        console.log('Using window.ui function');
-        window.ui('nav-drawer');
-      } else {
-        console.log('Using manual toggle');
-        // Manual toggle fallback
-        const drawer = document.getElementById('nav-drawer');
-        if (drawer) {
-          const isActive = drawer.classList.contains('active');
-          console.log('Drawer active state:', isActive);
-          if (isActive) {
-            drawer.classList.remove('active');
-            console.log('Removed active class');
-          } else {
-            drawer.classList.add('active');
-            console.log('Added active class');
-          }
+      const drawer = document.getElementById('nav-drawer');
+      if (drawer) {
+        const isOpen = drawer.getAttribute('data-open') === 'true';
+        console.log('Drawer open state:', isOpen);
+        
+        if (isOpen) {
+          // Close drawer
+          drawer.style.transform = 'translateX(-100%)';
+          drawer.setAttribute('data-open', 'false');
+          document.body.removeAttribute('data-drawer-open');
+          console.log('Closed drawer');
         } else {
-          console.log('Drawer element not found');
+          // Open drawer
+          drawer.style.transform = 'translateX(0)';
+          drawer.setAttribute('data-open', 'true');
+          document.body.setAttribute('data-drawer-open', 'true');
+          console.log('Opened drawer');
         }
+      } else {
+        console.log('Drawer element not found');
       }
     }
     

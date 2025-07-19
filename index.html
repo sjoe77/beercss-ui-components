@@ -220,7 +220,7 @@
       color: white;
     }
     
-    /* Simple Material Design Drawer */
+    /* Push-style drawer that moves content */
     nav.left.drawer {
       position: fixed;
       top: 0;
@@ -229,9 +229,9 @@
       height: 100vh;
       background: var(--surface-container, #1c1b1f);
       transition: left 0.3s ease;
-      z-index: 1000;
+      z-index: 100;
       overflow-y: auto;
-      box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     /* Show drawer when open */
@@ -239,23 +239,27 @@
       left: 0;
     }
     
-    /* Backdrop overlay */
-    .drawer-backdrop {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 999;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+    /* Push main content when drawer opens */
+    main.responsive {
+      transition: margin-left 0.3s ease;
     }
     
-    .drawer-backdrop.show {
-      opacity: 1;
-      visibility: visible;
+    body.drawer-open main.responsive {
+      margin-left: 280px;
+    }
+    
+    /* Also push header */
+    body.drawer-open header.fixed {
+      margin-left: 280px;
+    }
+    
+    header.fixed {
+      transition: margin-left 0.3s ease;
+    }
+    
+    /* Remove backdrop - we're pushing content instead */
+    .drawer-backdrop {
+      display: none;
     }
     
     nav.left.drawer a {
@@ -287,6 +291,12 @@
     nav.left.drawer a div {
       font-weight: 500;
     }
+    
+    /* Close button hover effect */
+    nav.left.drawer button:hover {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: white !important;
+    }
   </style>
 </head>
 <body class="dark">
@@ -311,8 +321,11 @@
   
   <!-- Left Navigation Drawer -->
   <nav id="nav-drawer" class="left drawer">
-    <div style="padding: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-top: 64px;">
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-top: 64px;">
       <h6 style="margin: 0; color: rgba(255, 255, 255, 0.9); font-size: 1rem;">Components</h6>
+      <button onclick="closeDrawer()" style="background: transparent; border: none; color: rgba(255, 255, 255, 0.7); cursor: pointer; padding: 0.25rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px;">
+        <i class="material-icons" style="font-size: 18px;">close</i>
+      </button>
     </div>
     
     <div id="nav-links" style="padding: 0.5rem 0;">
@@ -355,19 +368,17 @@
     
     function openDrawer() {
       const drawer = document.getElementById('nav-drawer');
-      const backdrop = document.getElementById('drawer-backdrop');
       
       drawer.classList.add('open');
-      backdrop.classList.add('show');
+      document.body.classList.add('drawer-open');
       console.log('Opened drawer');
     }
     
     function closeDrawer() {
       const drawer = document.getElementById('nav-drawer');
-      const backdrop = document.getElementById('drawer-backdrop');
       
       drawer.classList.remove('open');
-      backdrop.classList.remove('show');
+      document.body.classList.remove('drawer-open');
       console.log('Closed drawer');
     }
     

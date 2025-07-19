@@ -220,24 +220,40 @@
     nav.left.drawer {
       width: 300px;
       position: fixed;
-      top: 0;
+      top: 64px; /* Below header */
       left: 0;
-      height: 100vh;
+      height: calc(100vh - 64px);
       background: var(--surface-container, #1c1b1f);
-      z-index: 1000;
+      z-index: 100;
       overflow-y: auto;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    /* Overlay when drawer is open */
-    body[data-drawer-open="true"]::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 999;
+    /* Push main content when drawer is open */
+    main.responsive {
+      transition: margin-left 0.3s ease;
+    }
+    
+    body[data-drawer-open="true"] main.responsive {
+      margin-left: 300px;
+    }
+    
+    /* Only show overlay on mobile */
+    @media (max-width: 1023px) {
+      body[data-drawer-open="true"]::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+      }
+      
+      body[data-drawer-open="true"] main.responsive {
+        margin-left: 0; /* Don't push content on mobile */
+      }
     }
     
     nav.left.drawer a {
@@ -280,6 +296,7 @@
       <button class="circle transparent" onclick="toggleDrawer()">
         <i class="material-icons">menu</i>
       </button>
+      <img class="circle small" src="https://via.placeholder.com/40?text=🍺" alt="Logo" style="margin-right: 1rem;">
       <h5 class="max">BeerCSS UI Components</h5>
       <img class="circle small" src="https://via.placeholder.com/40" alt="Avatar">
       <button class="circle transparent">
@@ -290,9 +307,8 @@
 
   <!-- Left Navigation Drawer -->
   <nav id="nav-drawer" class="left drawer" style="transform: translateX(-100%); transition: transform 0.3s ease;">
-    <header>
-      <img class="circle medium" src="https://via.placeholder.com/80" alt="Logo">
-      <h6>Components</h6>
+    <header style="padding: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+      <h6 style="margin: 0; color: rgba(255, 255, 255, 0.9);">Components</h6>
     </header>
     
     <div id="nav-links">

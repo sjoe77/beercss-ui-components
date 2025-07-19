@@ -1,0 +1,33 @@
+{
+  "name": "@beercss/ui-components",
+  "version": "1.0.0",
+  "description": "Zero dependency UI component library built on BeerCSS",
+  "main": "dist/ui-components.js",
+  "module": "dist/ui-components.esm.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:lib": "vite build --config vite.lib.config.js",
+    "preview": "vite preview"
+  },
+  "keywords": ["beercss", "material-design", "web-components", "ui-library"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "peerDependencies": {
+    "beercss": "^3.11.33"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/ui-components.esm.js",
+      "require": "./dist/ui-components.js"
+    }
+  }
+}

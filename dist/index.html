@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BeerCSS UI Components Demo</title>
+  
+  <!-- BeerCSS -->
+  <link href="https://cdn.jsdelivr.net/npm/beercss@3.11.33/dist/cdn/beer.min.css" rel="stylesheet" />
+  <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.11.33/dist/cdn/beer.min.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.2/dist/cdn/material-dynamic-colors.min.js"></script>
+  
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Additional Component Styles -->
+  <style>
+    /* Ensure proper layout and spacing */
+    main.responsive {
+      margin-left: 0;
+      transition: margin-left 0.3s ease;
+    }
+    
+    @media (min-width: 1024px) {
+      main.responsive {
+        margin-left: 300px;
+      }
+    }
+    
+    /* Component spacing */
+    ui-input, ui-select, ui-button {
+      margin-bottom: 1rem;
+    }
+    
+    /* Better field styling */
+    .field {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    
+    .field input, .field select {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      color: inherit;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    
+    .field input:focus, .field select:focus {
+      border-color: var(--primary, #bb86fc);
+      border-width: 2px;
+    }
+    
+    .field label {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--surface, #121212);
+      padding: 0 0.25rem;
+      color: rgba(255, 255, 255, 0.7);
+      transition: all 0.2s ease;
+      pointer-events: none;
+      font-size: 1rem;
+    }
+    
+    .field input:focus + label,
+    .field input:not(:placeholder-shown) + label,
+    .field select:focus + label {
+      top: 0;
+      font-size: 0.75rem;
+      color: var(--primary, #bb86fc);
+    }
+    
+    .helper {
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .helper.error {
+      color: var(--error, #cf6679);
+    }
+    
+    /* Button improvements */
+    ui-button {
+      display: inline-block;
+      margin: 0.25rem;
+    }
+    
+    ui-button button {
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2.5rem;
+      background: var(--primary, #bb86fc);
+      color: var(--on-primary, #000000);
+      text-transform: none;
+    }
+    
+    ui-button button.filled {
+      background: var(--primary, #bb86fc);
+      color: var(--on-primary, #000000);
+    }
+    
+    ui-button button.outlined {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: var(--primary, #bb86fc);
+    }
+    
+    ui-button button.text {
+      background: transparent;
+      color: var(--primary, #bb86fc);
+    }
+    
+    ui-button button.tonal {
+      background: rgba(187, 134, 252, 0.2);
+      color: var(--primary, #bb86fc);
+    }
+    
+    ui-button button:hover:not(:disabled) {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transform: translateY(-1px);
+    }
+    
+    /* Tab improvements */
+    .tabs {
+      background: rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Table improvements */
+    .table-container {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .table th {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .table th, .table td {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Card improvements */
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    
+    /* Accordion improvements */
+    .accordion-header {
+      background: rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Grid spacing */
+    ui-grid {
+      margin-bottom: 2rem;
+    }
+    
+    /* Content spacing */
+    #content > div {
+      margin-bottom: 2rem;
+    }
+    
+    /* Ensure content is visible below fixed header */
+    body {
+      padding-top: 4rem;
+    }
+    
+    /* Navigation improvements */
+    nav.left.drawer {
+      width: 300px;
+    }
+    
+    nav.left.drawer a {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.8);
+      border-radius: 0 24px 24px 0;
+      margin: 0.25rem 0.5rem 0.25rem 0;
+      transition: all 0.2s ease;
+    }
+    
+    nav.left.drawer a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+    
+    nav.left.drawer a.active {
+      background: var(--primary-container, rgba(187, 134, 252, 0.2));
+      color: var(--on-primary-container, #bb86fc);
+    }
+    
+    nav.left.drawer a i {
+      margin-right: 1rem;
+      font-size: 1.25rem;
+    }
+    
+    nav.left.drawer a div {
+      font-weight: 500;
+    }
+  </style>
+  <script type="module" crossorigin src="/beercss-ui-components/assets/main-CBDVGRKb.js"></script>
+</head>
+<body class="dark">
+  
+  <!-- Header Banner -->
+  <header class="fixed">
+    <nav>
+      <button class="circle transparent" onclick="toggleDrawer()">
+        <i class="material-icons">menu</i>
+      </button>
+      <h5 class="max">BeerCSS UI Components</h5>
+      <img class="circle small" src="https://via.placeholder.com/40" alt="Avatar">
+      <button class="circle transparent">
+        <i class="material-icons">logout</i>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Left Navigation Drawer -->
+  <nav id="nav-drawer" class="left drawer">
+    <header>
+      <img class="circle medium" src="https://via.placeholder.com/80" alt="Logo">
+      <h6>Components</h6>
+    </header>
+    
+    <div id="nav-links">
+      <!-- Navigation links will be populated by JavaScript -->
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="responsive">
+    <div id="content" style="padding: 2rem;">
+      <div class="center-align">
+        <h3>Welcome to BeerCSS UI Components</h3>
+        <p>Select a component from the navigation to see examples.</p>
+        <p>This is a zero-dependency UI component library built on BeerCSS with Material Design 3.</p>
+        
+        <div style="margin-top: 2rem;">
+          <ui-button variant="filled" icon="explore" onclick="demo?.showComponent('button')">
+            Explore Components
+          </ui-button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Component Library -->
+  
+  <!-- Demo App -->
+  
+  <!-- Fix drawer toggle -->
+  <script>
+    function toggleDrawer() {
+      const drawer = document.getElementById('nav-drawer');
+      if (drawer) {
+        if (drawer.classList.contains('active')) {
+          drawer.classList.remove('active');
+        } else {
+          drawer.classList.add('active');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

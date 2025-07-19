@@ -243,6 +243,16 @@
       transform: translateX(300px);
     }
     
+    /* Ensure drawer fills the space */
+    nav.left.drawer {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+    
+    body[data-drawer-open="true"] nav.left.drawer {
+      transform: translateX(0);
+    }
+    
     /* Only show overlay on mobile */
     @media (max-width: 1023px) {
       body[data-drawer-open="true"] {
@@ -311,7 +321,7 @@
   </header>
 
   <!-- Left Navigation Drawer -->
-  <nav id="nav-drawer" class="left drawer" style="transform: translateX(-100%); transition: transform 0.3s ease;">
+  <nav id="nav-drawer" class="left drawer">
     <header style="padding: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
       <h6 style="margin: 0; color: rgba(255, 255, 255, 0.9);">Components</h6>
     </header>
@@ -347,19 +357,15 @@
       
       const drawer = document.getElementById('nav-drawer');
       if (drawer) {
-        const isOpen = drawer.getAttribute('data-open') === 'true';
+        const isOpen = document.body.hasAttribute('data-drawer-open');
         console.log('Drawer open state:', isOpen);
         
         if (isOpen) {
           // Close drawer
-          drawer.style.transform = 'translateX(-100%)';
-          drawer.setAttribute('data-open', 'false');
           document.body.removeAttribute('data-drawer-open');
           console.log('Closed drawer');
         } else {
           // Open drawer
-          drawer.style.transform = 'translateX(0)';
-          drawer.setAttribute('data-open', 'true');
           document.body.setAttribute('data-drawer-open', 'true');
           console.log('Opened drawer');
         }
@@ -367,6 +373,23 @@
         console.log('Drawer element not found');
       }
     }
+    
+    // Close drawer when clicking outside on desktop
+    document.addEventListener('click', function(e) {
+      const drawer = document.getElementById('nav-drawer');
+      const isOpen = document.body.hasAttribute('data-drawer-open');
+      const isDesktop = window.innerWidth >= 1024;
+      
+      if (isOpen && isDesktop) {
+        const isClickOnDrawer = drawer.contains(e.target);
+        const isClickOnToggle = e.target.closest('button[onclick="toggleDrawer()"]');
+        
+        if (!isClickOnDrawer && !isClickOnToggle) {
+          document.body.removeAttribute('data-drawer-open');
+          console.log('Closed drawer (click outside)');
+        }
+      }
+    });
     
     // Wait for BeerCSS to load
     document.addEventListener('DOMContentLoaded', function() {

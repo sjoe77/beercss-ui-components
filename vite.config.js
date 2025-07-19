@@ -6,9 +6,11 @@ export default defineConfig({
   base: '/beercss-ui-components/', // GitHub Pages base path
   build: {
     outDir: 'dist',
+    assetsDir: 'assets',
     rollupOptions: {
-      input: {
-        main: './index.html'
+      input: './index.html',
+      output: {
+        manualChunks: undefined
       }
     }
   },

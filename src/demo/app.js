@@ -130,8 +130,13 @@ class DemoApp {
         this.showComponent(componentId);
         
         // Close drawer on mobile
-        if (window.innerWidth < 1024 && window.ui) {
-          ui.close('nav-drawer');
+        if (window.innerWidth < 1024) {
+          if (window.ui) {
+            ui('nav-drawer');
+          } else {
+            const drawer = document.getElementById('nav-drawer');
+            if (drawer) drawer.classList.remove('active');
+          }
         }
       }
     });

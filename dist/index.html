@@ -220,7 +220,7 @@
       font-weight: 500;
     }
   </style>
-  <script type="module" crossorigin src="/beercss-ui-components/assets/main-Dzmx-kux.js"></script>
+  <script type="module" crossorigin src="/beercss-ui-components/assets/main-BqAiqKyJ.js"></script>
 </head>
 <body class="dark">
   
@@ -272,12 +272,18 @@
   <!-- Fix drawer toggle -->
   <script>
     function toggleDrawer() {
-      const drawer = document.getElementById('nav-drawer');
-      if (drawer) {
-        if (drawer.classList.contains('active')) {
-          drawer.classList.remove('active');
-        } else {
-          drawer.classList.add('active');
+      // Use BeerCSS UI API for drawer toggle
+      if (window.ui) {
+        ui('nav-drawer');
+      } else {
+        // Fallback for manual toggle
+        const drawer = document.getElementById('nav-drawer');
+        if (drawer) {
+          if (drawer.classList.contains('active')) {
+            drawer.classList.remove('active');
+          } else {
+            drawer.classList.add('active');
+          }
         }
       }
     }

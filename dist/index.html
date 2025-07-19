@@ -272,21 +272,40 @@
   <!-- Fix drawer toggle -->
   <script>
     function toggleDrawer() {
-      // Use BeerCSS UI API for drawer toggle
-      if (window.ui) {
+      console.log('toggleDrawer called');
+      
+      // Check if BeerCSS ui function is available
+      if (typeof ui === 'function') {
+        console.log('Using BeerCSS ui function');
         ui('nav-drawer');
+      } else if (window.ui && typeof window.ui === 'function') {
+        console.log('Using window.ui function');
+        window.ui('nav-drawer');
       } else {
-        // Fallback for manual toggle
+        console.log('Using manual toggle');
+        // Manual toggle fallback
         const drawer = document.getElementById('nav-drawer');
         if (drawer) {
-          if (drawer.classList.contains('active')) {
+          const isActive = drawer.classList.contains('active');
+          console.log('Drawer active state:', isActive);
+          if (isActive) {
             drawer.classList.remove('active');
+            console.log('Removed active class');
           } else {
             drawer.classList.add('active');
+            console.log('Added active class');
           }
+        } else {
+          console.log('Drawer element not found');
         }
       }
     }
+    
+    // Wait for BeerCSS to load
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM loaded, ui available:', typeof ui);
+      console.log('window.ui available:', typeof window.ui);
+    });
   </script>
 </body>
 </html>

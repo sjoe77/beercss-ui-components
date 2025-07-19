@@ -186,6 +186,10 @@
     }
     
     /* Header improvements */
+    header.fixed {
+      z-index: 1002; /* Above drawer */
+    }
+    
     header.fixed nav {
       display: flex;
       align-items: center;
@@ -220,26 +224,31 @@
     nav.left.drawer {
       width: 300px;
       position: fixed;
-      top: 64px; /* Below header */
+      top: 0;
       left: 0;
-      height: calc(100vh - 64px);
+      height: 100vh;
       background: var(--surface-container, #1c1b1f);
-      z-index: 100;
+      z-index: 1001; /* Above everything */
       overflow-y: auto;
       border-right: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 64px; /* Space for header */
     }
     
-    /* Push main content when drawer is open */
-    main.responsive {
-      transition: margin-left 0.3s ease;
+    /* Push entire page content when drawer is open */
+    body {
+      transition: transform 0.3s ease;
     }
     
-    body[data-drawer-open="true"] main.responsive {
-      margin-left: 300px;
+    body[data-drawer-open="true"] {
+      transform: translateX(300px);
     }
     
     /* Only show overlay on mobile */
     @media (max-width: 1023px) {
+      body[data-drawer-open="true"] {
+        transform: translateX(0); /* Don't push on mobile */
+      }
+      
       body[data-drawer-open="true"]::before {
         content: '';
         position: fixed;
@@ -249,10 +258,6 @@
         bottom: 0;
         background: rgba(0, 0, 0, 0.5);
         z-index: 99;
-      }
-      
-      body[data-drawer-open="true"] main.responsive {
-        margin-left: 0; /* Don't push content on mobile */
       }
     }
     

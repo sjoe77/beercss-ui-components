@@ -4,3 +4,6 @@ node_modules/
 .env
 .vscode/
 dist/assets/*.map
+
+# Claude Code settings (user-specific)
+.claude/settings.local.json

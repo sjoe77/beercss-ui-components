@@ -89,24 +89,25 @@ ui-grid-item {
 }
 
 ui-grid-item > div {
-    background: rgba(255, 255, 255, 0.08) !important;
-    color: rgba(255, 255, 255, 0.87) !important; /* High contrast text */
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #1a1a1a !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
     padding: 16px !important;
     border-radius: 6px !important;
     text-align: center !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
     min-height: 60px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    border: 1px solid rgba(255, 255, 255, 0.16) !important;
     transition: all 0.2s ease !important;
     font-family: 'Roboto', system-ui, sans-serif !important;
 }
 
 ui-grid-item > div:hover {
-    background: rgba(255, 255, 255, 0.12) !important;
+    background: rgba(255, 255, 255, 1) !important;
+    color: #000 !important;
     border-color: #bb86fc !important;
     transform: translateY(-1px) !important;
     box-shadow: 0 2px 8px rgba(187, 134, 252, 0.24) !important;
@@ -227,16 +228,43 @@ main ui-grid > *:hover {
     font-family: 'Roboto', system-ui, sans-serif;
 }
 
-/* ===== BUTTON REFINEMENTS ===== */
-ui-button button {
-    font-family: 'Roboto', system-ui, sans-serif;
-    font-size: 13px; /* Smaller, more refined */
+/* ===== REMOVED AMATEUR BUTTON OVERRIDES ===== */
+/* Now using pure BeerCSS button classes for professional styling */
+
+/* ===== ACCORDION STYLING ===== */
+.expansion details {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.expansion details summary {
+    padding: 1rem;
+    cursor: pointer;
+    background: rgba(255,255,255,0.03);
     font-weight: 500;
-    padding: 8px 20px; /* More compact */
-    min-height: 36px; /* Standard height */
-    border-radius: 18px;
-    letter-spacing: 0.1px;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background 0.2s ease;
+}
+
+.expansion details summary:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+.expansion details[open] summary {
+    background: rgba(187,134,252,0.1);
+    color: #bb86fc;
+}
+
+.expansion details .padding {
+    padding: 1rem 1.5rem;
+    background: rgba(255,255,255,0.02);
+}
+
+article details summary {
+    font-size: 1rem;
+    padding: 0.5rem 0;
+}
+
+article details .padding {
+    padding-top: 1rem;
 }
 
 /* ===== CARD IMPROVEMENTS ===== */

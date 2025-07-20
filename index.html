@@ -88,53 +88,97 @@
       color: var(--error, #cf6679);
     }
     
-    /* Button improvements */
-    ui-button {
-      display: inline-block;
+    /* BeerCSS Native Button Spacing Only */
+    button {
       margin: 0.25rem;
     }
     
-    ui-button button {
-      border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 20px;
-      font-size: 0.875rem;
-      font-weight: 500;
+    /* Force header to stick to very top */
+    header.fixed {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 1000 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      height: 28px !important;
+      transition: margin-left 0.3s ease;
+    }
+    
+    header.fixed nav {
+      height: 28px !important;
+      padding: 0.1rem 1rem !important;
+      margin: 0 !important;
+      min-height: 28px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 1rem;
+    }
+    
+    header.fixed nav h5 {
+      margin: 0 !important;
+      padding: 0 !important;
+      font-size: 0.9rem !important;
+      line-height: 1 !important;
+    }
+    
+    header.fixed nav button {
+      padding: 0.25rem !important;
+      margin: 0 !important;
+      min-width: 32px !important;
+      min-height: 32px !important;
+      color: white;
+      border: none !important;
+      background: transparent;
+      border-radius: 50%;
       cursor: pointer;
-      transition: all 0.2s ease;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      min-height: 2.5rem;
-      background: var(--primary, #bb86fc);
-      color: var(--on-primary, #000000);
-      text-transform: none;
+      justify-content: center;
+      box-shadow: none !important;
+      outline: none !important;
     }
     
-    ui-button button.filled {
-      background: var(--primary, #bb86fc);
-      color: var(--on-primary, #000000);
+    header.fixed nav button:hover {
+      background: rgba(255, 255, 255, 0.1);
     }
     
-    ui-button button.outlined {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: var(--primary, #bb86fc);
+    header.fixed nav button:focus {
+      outline: none !important;
+      box-shadow: none !important;
     }
     
-    ui-button button.text {
-      background: transparent;
-      color: var(--primary, #bb86fc);
+    /* ELIMINATE ALL WASTED SPACE */
+    body {
+      padding-top: 40px !important;
+      margin: 0 !important;
     }
     
-    ui-button button.tonal {
-      background: rgba(187, 134, 252, 0.2);
-      color: var(--primary, #bb86fc);
+    main.responsive {
+      margin: 0 !important;
+      padding: 0 !important;
+      transition: margin-left 0.3s ease;
     }
     
-    ui-button button:hover:not(:disabled) {
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      transform: translateY(-1px);
+    #content {
+      margin: 0 !important;
+      padding: 1rem 2rem !important;
+    }
+    
+    #content > div {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    .center-align {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    #content h3 {
+      margin-top: 0 !important;
+      padding: 0 !important;
     }
     
     /* Tab improvements */
@@ -222,11 +266,11 @@
       color: white;
     }
     
-    /* Push-style drawer that moves content */
+    /* DRAWER IMPROVEMENTS - Push content instead of overlay */
     nav.left.drawer {
       position: fixed;
       top: 0;
-      left: -280px; /* Hidden by default */
+      left: -280px;
       width: 280px;
       height: 100vh;
       background: var(--surface-container, #1c1b1f);
@@ -234,6 +278,66 @@
       z-index: 100;
       overflow-y: auto;
       border-right: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 0 !important;
+    }
+    
+    /* Drawer header with close button in top right */
+    nav.left.drawer > div:first-child {
+      display: flex !important;
+      justify-content: flex-end !important;
+      align-items: center !important;
+      padding: 0.5rem 1rem !important;
+      margin: 0 !important;
+      min-height: 48px !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    nav.left.drawer button {
+      background: transparent !important;
+      border: none !important;
+      color: rgba(255, 255, 255, 0.7) !important;
+      cursor: pointer !important;
+      padding: 0.25rem !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 32px !important;
+      height: 32px !important;
+      transition: background 0.2s ease !important;
+    }
+    
+    nav.left.drawer button:hover {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: white !important;
+    }
+    
+    /* Menu group styling */
+    .menu-group-header {
+      color: var(--on-surface-variant, rgba(255, 255, 255, 0.6)) !important;
+      font-size: 0.75rem !important;
+      font-weight: 500 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.1em !important;
+      padding: 1rem 1rem 0.5rem 1rem !important;
+      margin: 0 !important;
+      border-bottom: none !important;
+      background: transparent !important;
+    }
+    
+    .menu-group-header:first-of-type {
+      padding-top: 1.5rem !important;
+    }
+    
+    .menu-group-separator {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 0.75rem 0;
+    }
+    
+    #nav-links {
+      padding: 0 !important;
+      margin-top: 0 !important;
     }
     
     /* Show drawer when open */
@@ -242,26 +346,18 @@
     }
     
     /* Push main content when drawer opens */
-    main.responsive {
-      transition: margin-left 0.3s ease;
-    }
-    
     body.drawer-open main.responsive {
-      margin-left: 280px;
+      margin-left: 280px !important;
     }
     
-    /* Also push header */
+    /* Also push header when drawer opens */
     body.drawer-open header.fixed {
-      margin-left: 280px;
-    }
-    
-    header.fixed {
-      transition: margin-left 0.3s ease;
+      margin-left: 280px !important;
     }
     
     /* Remove backdrop - we're pushing content instead */
     .drawer-backdrop {
-      display: none;
+      display: none !important;
     }
     
     nav.left.drawer a {
@@ -303,6 +399,65 @@
       background: rgba(255, 255, 255, 0.1) !important;
       color: white !important;
     }
+    
+    /* Navigation group accordion styles */
+    .nav-group-header:hover {
+      background: rgba(255, 255, 255, 0.08) !important;
+    }
+    
+    .nav-group-content a:hover {
+      background: rgba(255, 255, 255, 0.08) !important;
+      color: white !important;
+    }
+    
+    .nav-group-content a:hover i {
+      color: rgba(255, 255, 255, 0.9) !important;
+    }
+    
+    /* Force full width drawer navigation */
+    #nav-drawer {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    
+    #nav-drawer > div:first-child {
+      display: flex !important;
+      justify-content: flex-end !important;
+      align-items: center !important;
+      padding: 0.25rem 0.5rem !important;
+      margin: 0 !important;
+      min-height: 32px !important;
+      width: 100% !important;
+      border: none !important;
+      border-bottom: none !important;
+      box-shadow: none !important;
+      background: transparent !important;
+    }
+    
+    #nav-drawer > div:last-child {
+      padding: 0 !important;
+      margin: 0 !important;
+      width: 100% !important;
+    }
+    
+    #nav-drawer > div:last-child > div {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    
+    .nav-group-header {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding: 0.75rem 1rem !important;
+      margin: 0 !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      background: rgba(255, 255, 255, 0.05) !important;
+      cursor: pointer !important;
+    }
   </style>
 </head>
 <body class="dark">
@@ -313,11 +468,11 @@
       <button class="circle transparent" onclick="toggleDrawer()">
         <i class="material-icons">menu</i>
       </button>
-      <img class="circle small" src="https://via.placeholder.com/40?text=🍺" alt="Logo" style="margin-right: 1rem;">
+      <i class="material-icons" style="font-size: 2rem; color: #bb86fc; margin-right: 1rem;">widgets</i>
       <h5 class="max">BeerCSS UI Components</h5>
-      <img class="circle small" src="https://via.placeholder.com/40" alt="Avatar">
+      <i class="material-icons" style="font-size: 1.5rem; color: rgba(255,255,255,0.8);">account_circle</i>
       <button class="circle transparent">
-        <i class="material-icons">logout</i>
+        <i class="material-icons">exit_to_app</i>
       </button>
     </nav>
   </header>
@@ -327,15 +482,84 @@
   
   <!-- Left Navigation Drawer -->
   <nav id="nav-drawer" class="left drawer">
-    <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-top: 64px;">
-      <h6 style="margin: 0; color: rgba(255, 255, 255, 0.9); font-size: 1rem;">Components</h6>
-      <button onclick="closeDrawer()" style="background: transparent; border: none; color: rgba(255, 255, 255, 0.7); cursor: pointer; padding: 0.25rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px;">
-        <i class="material-icons" style="font-size: 18px;">close</i>
+    <div style="display: flex; align-items: center; justify-content: flex-end; padding: 0.5rem; margin: 0; min-height: 32px;">
+      <button onclick="closeDrawer()" style="background: transparent; border: none; color: rgba(255, 255, 255, 0.7); cursor: pointer; padding: 0.25rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px;">
+        <i class="material-icons" style="font-size: 16px;">close</i>
       </button>
     </div>
     
-    <div id="nav-links" style="padding: 0.5rem 0;">
-      <!-- Navigation links will be populated by JavaScript -->
+    <div style="padding: 0; margin: 0;">
+      <!-- Components Group -->
+      <div style="margin: 0; padding: 0; width: 100%;">
+        <div class="nav-group-header" onclick="toggleNavGroup('components')" style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; cursor: pointer; background: rgba(255, 255, 255, 0.05); margin: 0; width: 100%; box-sizing: border-box;">
+          <div style="display: flex; align-items: center; color: rgba(255, 255, 255, 0.9); font-weight: 500; font-size: 0.9rem;">
+            <i class="material-icons" style="margin-right: 0.5rem; font-size: 1.1rem;">widgets</i>
+            Components
+          </div>
+          <i class="material-icons nav-group-arrow" id="components-arrow" style="color: rgba(255, 255, 255, 0.6); font-size: 1rem; transition: transform 0.2s ease;">expand_more</i>
+        </div>
+        
+        <div class="nav-group-content" id="components-content" style="background: rgba(255, 255, 255, 0.02); margin: 0; padding: 0; width: 100%;">
+          <a href="#accordion" onclick="window.demo?.showComponent('accordion');" style="display: flex; align-items: center; padding: 0.6rem 1rem 0.6rem 2.5rem; margin: 0; text-decoration: none; color: rgba(255, 255, 255, 0.8); transition: background 0.2s ease; width: 100%; box-sizing: border-box;">
+            <i class="material-icons" style="margin-right: 0.75rem; font-size: 1rem; color: rgba(255, 255, 255, 0.6);">view_agenda</i>
+            <span>Accordion</span>
+          </a>
+          <a href="#button" onclick="window.demo?.showComponent('button');" style="display: flex; align-items: center; padding: 0.6rem 1rem 0.6rem 2.5rem; margin: 0; text-decoration: none; color: rgba(255, 255, 255, 0.8); transition: background 0.2s ease; width: 100%; box-sizing: border-box;">
+            <i class="material-icons" style="margin-right: 0.75rem; font-size: 1rem; color: rgba(255, 255, 255, 0.6);">smart_button</i>
+            <span>Button</span>
+          </a>
+          <a href="#card" onclick="window.demo?.showComponent('card');" style="display: flex; align-items: center; padding: 0.6rem 1rem 0.6rem 2.5rem; margin: 0; text-decoration: none; color: rgba(255, 255, 255, 0.8); transition: background 0.2s ease; width: 100%; box-sizing: border-box;">
+            <i class="material-icons" style="margin-right: 0.75rem; font-size: 1rem; color: rgba(255, 255, 255, 0.6);">credit_card</i>
+            <span>Card</span>
+          </a>
+          <a href="#grid" onclick="window.demo?.showComponent('grid');" style="display: flex; align-items: center; padding: 0.6rem 1rem 0.6rem 2.5rem; margin: 0; text-decoration: none; color: rgba(255, 255, 255, 0.8); transition: background 0.2s ease; width: 100%; box-sizing: border-box;">
+            <i class="material-icons" style="margin-right: 0.75rem; font-size: 1rem; color: rgba(255, 255, 255, 0.6);">grid_view</i>
+            <span>Grid</span>
+          </a>
+          <a href="#input" onclick="window.demo?.showComponent('input');" style="display: flex; align-items: center; padding: 0.6rem 1rem 0.6rem 2.5rem; margin: 0; text-decoration: none; color: rgba(255, 255, 255, 0.8); transition: background 0.2s ease; width: 100%; box-sizing: border-box;">
+            <i class="material-icons" style="margin-right: 0.75rem; font-size: 1rem; color: rgba(255, 255, 255, 0.6);">input</i>
+            <span>Input</span>
+          </a>
+          <a href="#layout" onclick="window.demo?.showComponent('layout');" style="display: flex; align-items: center; padding: 0.6rem 1rem 0.6rem 2.5rem; margin: 0; text-decoration: none; color: rgba(255, 255, 255, 0.8); transition: background 0.2s ease; width: 100%; box-sizing: border-box;">
+            <i class="material-icons" style="margin-right: 0.75rem; font-size: 1rem; color: rgba(255, 255, 255, 0.6);">view_quilt</i>
+            <span>Layout</span>
+          </a>
+          <a href="#select" onclick="window.demo?.showComponent('select');" style="display: flex; align-items: center; padding: 0.6rem 1rem 0.6rem 2.5rem; margin: 0; text-decoration: none; color: rgba(255, 255, 255, 0.8); transition: background 0.2s ease; width: 100%; box-sizing: border-box;">
+            <i class="material-icons" style="margin-right: 0.75rem; font-size: 1rem; color: rgba(255, 255, 255, 0.6);">tune</i>
+            <span>Select</span>
+          </a>
+          <a href="#smart-table" onclick="window.demo?.showComponent('smart-table');" style="display: flex; align-items: center; padding: 0.6rem 1rem 0.6rem 2.5rem; margin: 0; text-decoration: none; color: rgba(255, 255, 255, 0.8); transition: background 0.2s ease; width: 100%; box-sizing: border-box;">
+            <i class="material-icons" style="margin-right: 0.75rem; font-size: 1rem; color: rgba(255, 255, 255, 0.6);">table_view</i>
+            <span>Smart Table</span>
+          </a>
+          <a href="#tabs" onclick="window.demo?.showComponent('tabs');" style="display: flex; align-items: center; padding: 0.6rem 1rem 0.6rem 2.5rem; margin: 0; text-decoration: none; color: rgba(255, 255, 255, 0.8); transition: background 0.2s ease; width: 100%; box-sizing: border-box;">
+            <i class="material-icons" style="margin-right: 0.75rem; font-size: 1rem; color: rgba(255, 255, 255, 0.6);">tab</i>
+            <span>Tabs</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Examples Group -->
+      <div style="margin: 0; padding: 0; width: 100%;">
+        <div class="nav-group-header" onclick="toggleNavGroup('examples')" style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; cursor: pointer; background: rgba(255, 255, 255, 0.05); margin: 0; width: 100%; box-sizing: border-box;">
+          <div style="display: flex; align-items: center; color: rgba(255, 255, 255, 0.9); font-weight: 500; font-size: 0.9rem;">
+            <i class="material-icons" style="margin-right: 0.5rem; font-size: 1.1rem;">folder</i>
+            Examples
+          </div>
+          <i class="material-icons nav-group-arrow" id="examples-arrow" style="color: rgba(255, 255, 255, 0.6); font-size: 1rem; transition: transform 0.2s ease;">chevron_right</i>
+        </div>
+        
+        <div class="nav-group-content" id="examples-content" style="display: none; background: rgba(255, 255, 255, 0.02); margin: 0; padding: 0; width: 100%;">
+          <a href="#forms" onclick="" style="display: flex; align-items: center; padding: 0.6rem 1rem 0.6rem 2.5rem; margin: 0; text-decoration: none; color: rgba(255, 255, 255, 0.8); transition: background 0.2s ease; width: 100%; box-sizing: border-box;">
+            <i class="material-icons" style="margin-right: 0.75rem; font-size: 1rem; color: rgba(255, 255, 255, 0.6);">description</i>
+            <span>Form Examples</span>
+          </a>
+          <a href="#dashboard" onclick="" style="display: flex; align-items: center; padding: 0.6rem 1rem 0.6rem 2.5rem; margin: 0; text-decoration: none; color: rgba(255, 255, 255, 0.8); transition: background 0.2s ease; width: 100%; box-sizing: border-box;">
+            <i class="material-icons" style="margin-right: 0.75rem; font-size: 1rem; color: rgba(255, 255, 255, 0.6);">dashboard</i>
+            <span>Dashboard</span>
+          </a>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -348,9 +572,10 @@
         <p>This is a zero-dependency UI component library built on BeerCSS with Material Design 3.</p>
         
         <div style="margin-top: 2rem;">
-          <ui-button variant="filled" icon="explore" onclick="demo?.showComponent('button')">
+          <button class="large" onclick="window.demo?.showComponent('button')">
+            <i>explore</i>
             Explore Components
-          </ui-button>
+          </button>
         </div>
       </div>
     </div>
@@ -386,6 +611,24 @@
       drawer.classList.remove('open');
       document.body.classList.remove('drawer-open');
       console.log('Closed drawer');
+    }
+    
+    // Accordion functionality for navigation groups
+    function toggleNavGroup(groupId) {
+      const content = document.getElementById(groupId + '-content');
+      const arrow = document.getElementById(groupId + '-arrow');
+      
+      if (content.style.display === 'none') {
+        // Open the group
+        content.style.display = 'block';
+        arrow.textContent = 'expand_more';
+        arrow.style.transform = 'rotate(0deg)';
+      } else {
+        // Close the group
+        content.style.display = 'none';
+        arrow.textContent = 'chevron_right';
+        arrow.style.transform = 'rotate(0deg)';
+      }
     }
     
     // Close drawer on escape key

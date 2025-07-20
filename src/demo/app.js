@@ -97,7 +97,14 @@ class DemoApp {
   setup() {
     this.createNavigation();
     this.bindEvents();
-    this.showComponent('button'); // Default component
+    
+    // Check for hash in URL, otherwise show welcome screen
+    const hash = window.location.hash.slice(1);
+    if (hash && componentList.find(c => c.id === hash)) {
+      this.showComponent(hash);
+    } else {
+      this.showWelcome();
+    }
   }
 
   createNavigation() {
@@ -148,6 +155,37 @@ class DemoApp {
         this.showComponent(hash);
       }
     });
+  }
+
+  showWelcome() {
+    this.currentComponent = null;
+    window.location.hash = '';
+    
+    // Clear active navigation
+    document.querySelectorAll('#nav-links a').forEach(link => {
+      link.classList.remove('active');
+    });
+
+    // Show welcome content
+    const contentDiv = document.getElementById('content');
+    if (contentDiv) {
+      contentDiv.innerHTML = `
+        <div style="padding: 2rem;">
+          <div class="center-align">
+            <h3>Welcome to BeerCSS UI Components</h3>
+            <p>Select a component from the navigation to see examples.</p>
+            <p>This is a zero-dependency UI component library built on BeerCSS with Material Design 3.</p>
+            
+            <div style="margin-top: 2rem;">
+              <button class="large" onclick="demo?.showComponent('button')">
+                <i>explore</i>
+                Explore Components
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
   }
 
   showComponent(componentId) {
@@ -327,7 +365,7 @@ class DemoApp {
           
           <div class="field label border">
             <select>
-              <option value="">Select a country</option>
+              <option value=""></option>
               <option value="us">United States</option>
               <option value="ca">Canada</option>
               <option value="mx">Mexico</option>
@@ -339,7 +377,7 @@ class DemoApp {
           
           <div class="field label border round">
             <select>
-              <option value="">Choose your role</option>
+              <option value=""></option>
               <option value="developer">Developer</option>
               <option value="designer">Designer</option>
               <option value="manager">Manager</option>
@@ -356,7 +394,7 @@ class DemoApp {
           <div class="field label prefix">
             <i>business</i>
             <select>
-              <option value="">Select department</option>
+              <option value=""></option>
               <option value="engineering">Engineering</option>
               <option value="design">Design</option>
               <option value="marketing">Marketing</option>
@@ -368,7 +406,7 @@ class DemoApp {
           
           <div class="field label border fill invalid">
             <select>
-              <option value="">Select priority</option>
+              <option value=""></option>
               <option value="low">Low</option>
               <option value="medium">Medium</option>
               <option value="high">High</option>
@@ -384,50 +422,44 @@ class DemoApp {
 
   generateCardExamples() {
     return `
-      <h3>Card Component Examples</h3>
+      <h3>Professional Card Examples - BeerCSS Native</h3>
       
       <div class="grid">
         <div class="s12 m6 l4">
-          <ui-card>
-            <ui-card-header title="Simple Card" subtitle="Basic card example"></ui-card-header>
-            <ui-card-content>
-              This is the card content area. You can put any content here including text, images, or other components.
-            </ui-card-content>
-            <ui-card-actions>
-              <ui-button variant="text">Action 1</ui-button>
-              <ui-button variant="text">Action 2</ui-button>
-            </ui-card-actions>
-          </ui-card>
+          <article class="padding round border" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+            <h6>Simple Card</h6>
+            <p>This is the card content area. You can put any content here including text, images, or other components.</p>
+            <nav style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+              <button class="transparent small"><i>favorite</i>Like</button>
+              <button class="transparent small"><i>share</i>Share</button>
+            </nav>
+          </article>
         </div>
         
         <div class="s12 m6 l4">
-          <ui-card variant="outlined" clickable>
-            <ui-card-header 
-              title="Clickable Card" 
-              subtitle="Click anywhere on this card"
-              avatar="https://via.placeholder.com/40"
-            ></ui-card-header>
-            <ui-card-content>
-              This card is clickable and has an outlined variant with an avatar image.
-            </ui-card-content>
-          </ui-card>
+          <article class="padding round border" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); cursor: pointer;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <i class="material-icons circle" style="background: #bb86fc; color: white; padding: 0.5rem;">person</i>
+              <div>
+                <h6 style="margin: 0;">Clickable Card</h6>
+                <small style="opacity: 0.7;">Click anywhere on this card</small>
+              </div>
+            </div>
+            <p>This card is clickable and has an avatar image with professional styling.</p>
+          </article>
         </div>
         
         <div class="s12 m6 l4">
-          <ui-card>
-            <ui-card-media 
-              src="https://via.placeholder.com/400x200" 
-              alt="Placeholder image"
-              aspect-ratio="2/1"
-            ></ui-card-media>
-            <ui-card-header title="Media Card" subtitle="With image"></ui-card-header>
-            <ui-card-content>
-              This card includes a media component with an image.
-            </ui-card-content>
-            <ui-card-actions align="right">
-              <ui-button variant="text">Learn More</ui-button>
-            </ui-card-actions>
-          </ui-card>
+          <article class="padding round border" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+            <div style="height: 120px; background: linear-gradient(45deg, #bb86fc, #6200ea); border-radius: 8px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center;">
+              <i class="material-icons" style="font-size: 3rem; color: white;">image</i>
+            </div>
+            <h6>Media Card</h6>
+            <p>This card includes a media component with a gradient background.</p>
+            <nav style="text-align: right; margin-top: 1rem;">
+              <button class="border small"><i>arrow_forward</i>Learn More</button>
+            </nav>
+          </article>
         </div>
       </div>
     `;
@@ -435,78 +467,128 @@ class DemoApp {
 
   generateTabsExamples() {
     return `
-      <h3>Tabs Component Examples</h3>
+      <h3>Professional Tabs Examples - BeerCSS Native</h3>
       
-      <h5>Basic Tabs</h5>
-      <ui-tabs active="0" style="margin-bottom: 2rem;">
-        <ui-tab label="Tab 1">
-          <h6>First Tab Content</h6>
-          <p>This is the content for the first tab. You can put any HTML content here.</p>
-        </ui-tab>
-        <ui-tab label="Tab 2">
-          <h6>Second Tab Content</h6>
-          <p>This is the content for the second tab. Each tab can have different content.</p>
-        </ui-tab>
-        <ui-tab label="Tab 3">
-          <h6>Third Tab Content</h6>
-          <p>This is the content for the third tab. Tabs are great for organizing content.</p>
-        </ui-tab>
-        <ui-tab label="Disabled" disabled>
-          <p>This tab is disabled.</p>
-        </ui-tab>
-      </ui-tabs>
+      <h5>BeerCSS Tabs with Active Indicator</h5>
+      <div class="tabs" style="margin-bottom: 2rem;">
+        <a class="active" onclick="demo.showTabContent(0, this)">Tab 1</a>
+        <a onclick="demo.showTabContent(1, this)">Tab 2</a>
+        <a onclick="demo.showTabContent(2, this)">Tab 3</a>
+        <a onclick="demo.showTabContent(3, this)" style="opacity: 0.5; pointer-events: none;">Disabled</a>
+      </div>
       
-      <h5>Tabs with Components</h5>
-      <ui-tabs active="0">
-        <ui-tab label="Form">
-          <ui-input label="Name" style="margin-bottom: 1rem;"></ui-input>
-          <ui-input label="Email" type="email" style="margin-bottom: 1rem;"></ui-input>
-          <ui-button variant="filled">Submit</ui-button>
-        </ui-tab>
-        <ui-tab label="Settings">
-          <ui-select label="Theme" style="margin-bottom: 1rem;">
+      <div class="page active" id="tab-content-0" style="padding: 2rem; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+        <h6>First Tab Content</h6>
+        <p>This is the content for the first tab. You can put any HTML content here.</p>
+      </div>
+      
+      <div class="page" id="tab-content-1" style="padding: 2rem; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); display: none;">
+        <h6>Second Tab Content</h6>
+        <p>This is the content for the second tab. Each tab can have different content.</p>
+      </div>
+      
+      <div class="page" id="tab-content-2" style="padding: 2rem; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); display: none;">
+        <h6>Third Tab Content</h6>
+        <p>This is the content for the third tab. Tabs are great for organizing content.</p>
+      </div>
+      
+      <div class="page" id="tab-content-3" style="padding: 2rem; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); display: none;">
+        <p>This tab is disabled.</p>
+      </div>
+      
+      <h5>BeerCSS Tabs with Form Components</h5>
+      <div class="tabs" style="margin-bottom: 1rem;">
+        <a class="active" onclick="demo.showTabContent2(0, this)">Form</a>
+        <a onclick="demo.showTabContent2(1, this)">Settings</a>
+      </div>
+      
+      <div class="page active" id="tab2-content-0" style="padding: 2rem; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+        <div class="field label border" style="margin-bottom: 1rem;">
+          <input type="text" placeholder=" ">
+          <label>Name</label>
+        </div>
+        <div class="field label border" style="margin-bottom: 1rem;">
+          <input type="email" placeholder=" ">
+          <label>Email</label>
+        </div>
+        <button>Submit</button>
+      </div>
+      
+      <div class="page" id="tab2-content-1" style="padding: 2rem; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); display: none;">
+        <div class="field label border" style="margin-bottom: 1rem;">
+          <select>
+            <option value=""></option>
             <option value="light">Light</option>
             <option value="dark">Dark</option>
             <option value="auto">Auto</option>
-          </ui-select>
-          <ui-button variant="filled">Save Settings</ui-button>
-        </ui-tab>
-      </ui-tabs>
+          </select>
+          <label>Theme</label>
+        </div>
+        <button>Save Settings</button>
+      </div>
     `;
   }
 
   generateAccordionExamples() {
     return `
-      <h3>Accordion Component Examples</h3>
+      <h3>Professional Accordion Examples - BeerCSS Native</h3>
       
-      <h5>Basic Accordion</h5>
-      <ui-accordion style="margin-bottom: 2rem;">
-        <ui-accordion-item title="What is BeerCSS?" open>
-          BeerCSS is a Material Design 3 CSS framework that helps you build beautiful interfaces quickly and easily.
-        </ui-accordion-item>
-        <ui-accordion-item title="How do I use these components?">
-          Simply include the component library script and use the custom elements in your HTML. Each component supports various attributes for customization.
-        </ui-accordion-item>
-        <ui-accordion-item title="Are there any dependencies?">
-          No! This is a zero-dependency component library. You only need BeerCSS for styling.
-        </ui-accordion-item>
-        <ui-accordion-item title="Disabled Item" disabled>
-          This item is disabled and cannot be opened.
-        </ui-accordion-item>
-      </ui-accordion>
+      <h5>BeerCSS Expansion Panels</h5>
+      <div class="expansion" style="margin-bottom: 2rem;">
+        <details open>
+          <summary>What is BeerCSS?</summary>
+          <div class="padding">
+            BeerCSS is a Material Design 3 CSS framework that helps you build beautiful interfaces quickly and easily.
+          </div>
+        </details>
+        <details>
+          <summary>How do I use these components?</summary>
+          <div class="padding">
+            Simply include the component library script and use the custom elements in your HTML. Each component supports various attributes for customization.
+          </div>
+        </details>
+        <details>
+          <summary>Are there any dependencies?</summary>
+          <div class="padding">
+            No! This is a zero-dependency component library. You only need BeerCSS for styling.
+          </div>
+        </details>
+        <details>
+          <summary>Features and Benefits</summary>
+          <div class="padding">
+            <ul>
+              <li>Material Design 3 compliance</li>
+              <li>Zero dependencies</li>
+              <li>Professional appearance</li>
+              <li>Responsive design</li>
+              <li>Easy to implement</li>
+            </ul>
+          </div>
+        </details>
+      </div>
       
-      <h5>Multiple Open Items</h5>
-      <ui-accordion multiple>
-        <ui-accordion-item title="First Item" open>
-          This accordion allows multiple items to be open at the same time.
-        </ui-accordion-item>
-        <ui-accordion-item title="Second Item" open>
-          Both of these items can be open simultaneously because the accordion has the 'multiple' attribute.
-        </ui-accordion-item>
-        <ui-accordion-item title="Third Item">
-          You can open and close items independently.
-        </ui-accordion-item>
-      </ui-accordion>
+      <h5>BeerCSS Card-based Accordion</h5>
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <article class="padding border round">
+          <details>
+            <summary><strong>Getting Started</strong></summary>
+            <div class="padding">
+              <p>To get started with BeerCSS UI Components, include the library and start using the semantic HTML elements.</p>
+              <button class="border small"><i>download</i>Download</button>
+            </div>
+          </details>
+        </article>
+        
+        <article class="padding border round">
+          <details>
+            <summary><strong>Advanced Usage</strong></summary>
+            <div class="padding">
+              <p>For advanced usage, you can customize components using BeerCSS classes and attributes.</p>
+              <button class="border small"><i>code</i>View Docs</button>
+            </div>
+          </details>
+        </article>
+      </div>
     `;
   }
 
@@ -678,9 +760,9 @@ class DemoApp {
       </ui-smart-table>
       
       <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-        <ui-button onclick="demo.addUser()" variant="filled" icon="add">Add User</ui-button>
-        <ui-button onclick="demo.toggleTableLoading()" variant="outlined" icon="refresh">Toggle Loading</ui-button>
-        <ui-button onclick="demo.exportTableData()" variant="outlined" icon="download">Export CSV</ui-button>
+        <button onclick="demo.addUser()"><i>add</i>Add User</button>
+        <button class="border" onclick="demo.toggleTableLoading()"><i>refresh</i>Toggle Loading</button>
+        <button class="border" onclick="demo.exportTableData()"><i>download</i>Export CSV</button>
       </div>
       
       <h5>Features</h5>
@@ -767,8 +849,58 @@ class DemoApp {
       URL.revokeObjectURL(url);
     }
   }
+
+  // Tab switching functionality for BeerCSS tabs
+  showTabContent(index, tabElement) {
+    // Hide all tab content panels
+    for (let i = 0; i < 4; i++) {
+      const content = document.getElementById(`tab-content-${i}`);
+      if (content) {
+        content.style.display = 'none';
+        content.classList.remove('active');
+      }
+    }
+    
+    // Remove active class from all tabs
+    const tabs = tabElement.parentElement.querySelectorAll('a');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    
+    // Show selected content and mark tab as active
+    const selectedContent = document.getElementById(`tab-content-${index}`);
+    if (selectedContent) {
+      selectedContent.style.display = 'block';
+      selectedContent.classList.add('active');
+    }
+    tabElement.classList.add('active');
+  }
+
+  showTabContent2(index, tabElement) {
+    // Hide all tab content panels
+    for (let i = 0; i < 2; i++) {
+      const content = document.getElementById(`tab2-content-${i}`);
+      if (content) {
+        content.style.display = 'none';
+        content.classList.remove('active');
+      }
+    }
+    
+    // Remove active class from all tabs
+    const tabs = tabElement.parentElement.querySelectorAll('a');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    
+    // Show selected content and mark tab as active
+    const selectedContent = document.getElementById(`tab2-content-${index}`);
+    if (selectedContent) {
+      selectedContent.style.display = 'block';
+      selectedContent.classList.add('active');
+    }
+    tabElement.classList.add('active');
+  }
 }
 
 // Initialize demo app
 const demo = new DemoApp();
 window.demo = demo; // Make available globally for button clicks
+
+// Also expose showComponent directly for easier access
+window.showComponent = (componentId) => demo.showComponent(componentId);

@@ -220,47 +220,47 @@ class DemoApp {
 
   generateButtonExamples() {
     return `
-      <h3>Button Component Examples</h3>
+      <h3>Professional Button Examples - BeerCSS Native</h3>
       
       <div class="grid">
         <div class="s12 m6">
-          <h5>Basic Buttons</h5>
+          <h5>Basic BeerCSS Buttons</h5>
           <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-            <ui-button variant="filled">Filled Button</ui-button>
-            <ui-button variant="outlined">Outlined Button</ui-button>
-            <ui-button variant="text">Text Button</ui-button>
-            <ui-button variant="tonal">Tonal Button</ui-button>
+            <button>Default Button</button>
+            <button class="border">Outlined Button</button>
+            <button class="transparent">Text Button</button>
+            <button class="small">Small Button</button>
           </div>
           
-          <h5>With Icons</h5>
+          <h5>BeerCSS Icons & Shapes</h5>
           <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-            <ui-button variant="filled" icon="add">Add Item</ui-button>
-            <ui-button variant="outlined" icon="delete" icon-position="right">Delete</ui-button>
-            <ui-button variant="filled" icon="favorite" round></ui-button>
+            <button><i>add</i>Add Item</button>
+            <button class="border"><i>delete</i>Delete</button>
+            <button class="circle"><i>favorite</i></button>
           </div>
           
-          <h5>States</h5>
+          <h5>BeerCSS Sizes & States</h5>
           <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-            <ui-button variant="filled" disabled>Disabled</ui-button>
-            <ui-button variant="filled" loading>Loading</ui-button>
-            <ui-button variant="outlined" size="small">Small</ui-button>
-            <ui-button variant="filled" size="large">Large</ui-button>
+            <button disabled>Disabled</button>
+            <button class="border small">Small Border</button>
+            <button class="large">Large Button</button>
+            <button class="round">Round Button</button>
           </div>
         </div>
         
         <div class="s12 m6">
-          <h5>State-Driven Button (Phase 3 Preview)</h5>
-          <p>This button is driven by centralized state:</p>
-          <ui-button field-id="saveButton" variant="filled" icon="save">Save Changes</ui-button>
+          <h5>BeerCSS Advanced Examples</h5>
+          <p>Professional BeerCSS button patterns:</p>
+          <button><i>save</i>Save Changes</button>
           
           <div style="margin-top: 1rem;">
-            <ui-button onclick="demo.toggleButtonState()" variant="outlined">Toggle Button State</ui-button>
+            <button class="border" onclick="demo.showAlert('Professional BeerCSS!')">Test Click</button>
           </div>
           
-          <h5>Event Handling</h5>
-          <ui-button onclick="demo.showAlert('Button clicked!')" variant="filled" icon="notifications">
-            Click Me
-          </ui-button>
+          <h5>BeerCSS Navigation Patterns</h5>
+          <button class="transparent circle"><i>notifications</i></button>
+          <button class="transparent circle"><i>account_circle</i></button>
+          <button class="border round">Learn More</button>
         </div>
       </div>
     `;
@@ -268,29 +268,50 @@ class DemoApp {
 
   generateInputExamples() {
     return `
-      <h3>Input Component Examples</h3>
+      <h3>Professional Input Examples - BeerCSS Native</h3>
       
       <div class="grid">
         <div class="s12 m6">
-          <h5>Basic Inputs</h5>
-          <ui-input label="Name" placeholder="Enter your name" style="margin-bottom: 1rem;"></ui-input>
-          <ui-input label="Email" type="email" placeholder="Enter your email" style="margin-bottom: 1rem;"></ui-input>
-          <ui-input label="Password" type="password" helper="Min 8 characters" style="margin-bottom: 1rem;"></ui-input>
+          <h5>BeerCSS Field Patterns</h5>
           
-          <h5>With Icons</h5>
-          <ui-input label="Search" icon="search" placeholder="Search..." style="margin-bottom: 1rem;"></ui-input>
-          <ui-input label="Phone" icon="phone" icon-position="right" type="tel" style="margin-bottom: 1rem;"></ui-input>
+          <div class="field label border">
+            <input type="text" placeholder=" ">
+            <label>Full Name</label>
+          </div>
+          
+          <div class="field label border round">
+            <input type="email" placeholder=" ">
+            <label>Email Address</label>
+            <span class="helper">We'll never share your email</span>
+          </div>
+          
+          <div class="field label border">
+            <input type="password" placeholder=" ">
+            <label>Password</label>
+            <span class="helper">Min 8 characters required</span>
+          </div>
         </div>
         
         <div class="s12 m6">
-          <h5>State-Driven Inputs (Phase 3 Preview)</h5>
-          <ui-input field-id="user.name" label="Full Name" style="margin-bottom: 1rem;"></ui-input>
-          <ui-input field-id="user.email" label="Email Address" style="margin-bottom: 1rem;"></ui-input>
+          <h5>BeerCSS Advanced Fields</h5>
           
-          <h5>Validation</h5>
-          <ui-input label="Required Field" required style="margin-bottom: 1rem;"></ui-input>
-          <ui-input label="Min Length" minlength="5" helper="At least 5 characters" style="margin-bottom: 1rem;"></ui-input>
-          <ui-input label="Pattern" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" helper="Format: XXX-XXX-XXXX" style="margin-bottom: 1rem;"></ui-input>
+          <div class="field label round prefix">
+            <i>search</i>
+            <input type="text" placeholder=" ">
+            <label>Search</label>
+          </div>
+          
+          <div class="field label suffix">
+            <input type="tel" placeholder=" ">
+            <label>Phone Number</label>
+            <i>phone</i>
+          </div>
+          
+          <div class="field label border fill invalid">
+            <input type="text" placeholder=" ">
+            <label>Required Field</label>
+            <span class="error">This field is required</span>
+          </div>
         </div>
       </div>
     `;
@@ -298,41 +319,64 @@ class DemoApp {
 
   generateSelectExamples() {
     return `
-      <h3>Select Component Examples</h3>
+      <h3>Professional Select Examples - BeerCSS Native</h3>
       
       <div class="grid">
         <div class="s12 m6">
-          <h5>Basic Select</h5>
-          <ui-select label="Country" style="margin-bottom: 1rem;">
-            <option value="">Select a country</option>
-            <option value="us">United States</option>
-            <option value="ca">Canada</option>
-            <option value="mx">Mexico</option>
-            <option value="uk">United Kingdom</option>
-          </ui-select>
+          <h5>BeerCSS Select Fields</h5>
           
-          <h5>Multiple Selection</h5>
-          <ui-select label="Skills" multiple style="margin-bottom: 1rem;">
-            <option value="js">JavaScript</option>
-            <option value="py">Python</option>
-            <option value="java">Java</option>
-            <option value="cpp">C++</option>
-            <option value="go">Go</option>
-          </ui-select>
+          <div class="field label border">
+            <select>
+              <option value="">Select a country</option>
+              <option value="us">United States</option>
+              <option value="ca">Canada</option>
+              <option value="mx">Mexico</option>
+              <option value="uk">United Kingdom</option>
+              <option value="de">Germany</option>
+            </select>
+            <label>Country</label>
+          </div>
+          
+          <div class="field label border round">
+            <select>
+              <option value="">Choose your role</option>
+              <option value="developer">Developer</option>
+              <option value="designer">Designer</option>
+              <option value="manager">Manager</option>
+              <option value="analyst">Analyst</option>
+            </select>
+            <label>Job Role</label>
+            <span class="helper">Select your primary role</span>
+          </div>
         </div>
         
         <div class="s12 m6">
-          <h5>State-Driven Select (Phase 3 Preview)</h5>
-          <ui-select field-id="user.country" label="Country" style="margin-bottom: 1rem;"></ui-select>
+          <h5>BeerCSS Advanced Selects</h5>
           
-          <h5>Required Selection</h5>
-          <ui-select label="Department" required style="margin-bottom: 1rem;">
-            <option value="">Select department</option>
-            <option value="eng">Engineering</option>
-            <option value="design">Design</option>
-            <option value="marketing">Marketing</option>
-            <option value="sales">Sales</option>
-          </ui-select>
+          <div class="field label prefix">
+            <i>business</i>
+            <select>
+              <option value="">Select department</option>
+              <option value="engineering">Engineering</option>
+              <option value="design">Design</option>
+              <option value="marketing">Marketing</option>
+              <option value="sales">Sales</option>
+              <option value="hr">Human Resources</option>
+            </select>
+            <label>Department</label>
+          </div>
+          
+          <div class="field label border fill invalid">
+            <select>
+              <option value="">Select priority</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              <option value="urgent">Urgent</option>
+            </select>
+            <label>Priority Level</label>
+            <span class="error">Please select a priority level</span>
+          </div>
         </div>
       </div>
     `;
@@ -538,40 +582,82 @@ class DemoApp {
 
   generateLayoutExamples() {
     return `
-      <h3>Layout Component Examples</h3>
+      <h3>Professional Layout Examples - BeerCSS Native</h3>
       
-      <h5>Layout Utilities</h5>
-      <div style="margin-bottom: 2rem;">
-        <ui-layout margin="medium" padding="large" style="background: #e3f2fd; border-radius: 8px;">
-          <p>This layout has medium margin and large padding.</p>
-        </ui-layout>
+      <div class="grid">
+        <div class="s12">
+          <h5>BeerCSS Grid System</h5>
+          <div class="grid">
+            <div class="s12 m6 l3">
+              <article class="padding round border">
+                <h6>Responsive Column</h6>
+                <p>s12 m6 l3 - Adapts to screen size</p>
+              </article>
+            </div>
+            <div class="s12 m6 l3">
+              <article class="padding round border">
+                <h6>Equal Width</h6>
+                <p>Consistent spacing and alignment</p>
+              </article>
+            </div>
+            <div class="s12 m6 l3">
+              <article class="padding round border">
+                <h6>Professional</h6>
+                <p>Clean Material Design styling</p>
+              </article>
+            </div>
+            <div class="s12 m6 l3">
+              <article class="padding round border">
+                <h6>BeerCSS Grid</h6>
+                <p>Native responsive behavior</p>
+              </article>
+            </div>
+          </div>
+        </div>
+        
+        <div class="s12">
+          <h5>BeerCSS Navigation Layout</h5>
+          <nav class="padding round border">
+            <button class="transparent"><i>home</i>Home</button>
+            <button class="transparent"><i>search</i>Search</button>
+            <button class="transparent"><i>settings</i>Settings</button>
+            <button class="transparent"><i>account_circle</i>Profile</button>
+          </nav>
+        </div>
+        
+        <div class="s12">
+          <h5>BeerCSS Card Layout</h5>
+          <div class="grid">
+            <div class="s12 m4">
+              <article class="padding round border">
+                <h6>Card Title</h6>
+                <p>Professional card layout with proper spacing and typography.</p>
+                <nav class="right-align">
+                  <button class="border small">Action</button>
+                </nav>
+              </article>
+            </div>
+            <div class="s12 m4">
+              <article class="padding round border">
+                <h6>Another Card</h6>
+                <p>Consistent spacing and styling across all cards.</p>
+                <nav class="right-align">
+                  <button class="border small">Action</button>
+                </nav>
+              </article>
+            </div>
+            <div class="s12 m4">
+              <article class="padding round border">
+                <h6>Third Card</h6>
+                <p>Responsive grid system adapts to screen size.</p>
+                <nav class="right-align">
+                  <button class="border small">Action</button>
+                </nav>
+              </article>
+            </div>
+          </div>
+        </div>
       </div>
-      
-      <h5>Flexbox Layout</h5>
-      <ui-flex direction="row" justify="space-between" align="center" gap="1rem" style="background: #f3e5f5; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
-        <ui-flex-item>
-          <div style="background: #fff; padding: 0.5rem; border-radius: 4px;">Item 1</div>
-        </ui-flex-item>
-        <ui-flex-item grow="2">
-          <div style="background: #fff; padding: 0.5rem; border-radius: 4px;">Item 2 (grows)</div>
-        </ui-flex-item>
-        <ui-flex-item>
-          <div style="background: #fff; padding: 0.5rem; border-radius: 4px;">Item 3</div>
-        </ui-flex-item>
-      </ui-flex>
-      
-      <h5>Column Layout</h5>
-      <ui-flex direction="column" gap="1rem" style="background: #e8f5e8; padding: 1rem; border-radius: 8px;">
-        <ui-flex-item>
-          <div style="background: #fff; padding: 1rem; border-radius: 4px;">Header</div>
-        </ui-flex-item>
-        <ui-flex-item grow="1">
-          <div style="background: #fff; padding: 1rem; border-radius: 4px;">Main Content (grows)</div>
-        </ui-flex-item>
-        <ui-flex-item>
-          <div style="background: #fff; padding: 1rem; border-radius: 4px;">Footer</div>
-        </ui-flex-item>
-      </ui-flex>
     `;
   }
 

@@ -1,0 +1,228 @@
+/**
+ * Professional BeerCSS UI Components - Enhanced Styling
+ * Fixes for better spacing, typography, and UX fundamentals
+ */
+
+/* ====================================================================
+   IMPROVED CONTENT LAYOUT & SPACING
+   ==================================================================== */
+
+/* Main content container improvements */
+#content {
+  padding: 2rem !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+}
+
+/* Better typography hierarchy */
+#content h3 {
+  font-size: 1.75rem !important;
+  font-weight: 500 !important;
+  margin-bottom: 2rem !important;
+  text-align: center !important;
+  color: var(--primary) !important;
+  line-height: 1.3 !important;
+}
+
+#content h5 {
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
+  margin: 2rem 0 1.5rem 0 !important;
+  color: var(--on-surface) !important;
+  line-height: 1.4 !important;
+  padding-top: 0.5rem !important; /* Prevent clipping */
+}
+
+/* Grid improvements for better spacing */
+.grid {
+  gap: 2rem !important;
+  margin-top: 2rem !important;
+  overflow: visible !important;
+}
+
+.grid > div {
+  padding: 2rem 1.5rem 1.5rem 1.5rem !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* ====================================================================
+   BEERCSS FIELD IMPROVEMENTS
+   ==================================================================== */
+
+/* Better spacing for BeerCSS fields */
+.field {
+  margin-bottom: 2rem !important;
+  position: relative !important;
+}
+
+.field:last-child {
+  margin-bottom: 1rem !important;
+}
+
+/* Improve field borders and focus states */
+.field.border input {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  transition: all 0.2s ease !important;
+}
+
+.field.border input:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 1px var(--primary) !important;
+}
+
+/* Better label positioning and animation */
+.field.label label {
+  transition: all 0.2s ease !important;
+  background: var(--surface) !important;
+  padding: 0 0.5rem !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.field.label input:focus + label,
+.field.label input:not(:placeholder-shown) + label {
+  color: var(--primary) !important;
+  font-weight: 500 !important;
+}
+
+/* Helper text improvements */
+.field .helper {
+  font-size: 0.75rem !important;
+  margin-top: 0.5rem !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  line-height: 1.4 !important;
+}
+
+.field .error {
+  color: var(--error) !important;
+  font-weight: 500 !important;
+}
+
+/* ====================================================================
+   BUTTON ENHANCEMENTS
+   ==================================================================== */
+
+/* Better button spacing in demo containers */
+#content button {
+  margin: 0.25rem !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Improve button containers */
+.grid div[style*="display: flex"] {
+  padding: 1.5rem !important;
+  gap: 1rem !important;
+  align-items: flex-start !important;
+  flex-wrap: wrap !important;
+}
+
+/* ====================================================================
+   RESPONSIVE IMPROVEMENTS
+   ==================================================================== */
+
+@media (max-width: 768px) {
+  #content {
+    padding: 1rem !important;
+  }
+  
+  .grid {
+    gap: 1rem !important;
+  }
+  
+  .grid > div {
+    padding: 1rem !important;
+  }
+  
+  #content h3 {
+    font-size: 1.5rem !important;
+  }
+  
+  #content h5 {
+    font-size: 1.125rem !important;
+    margin: 1.5rem 0 1rem 0 !important;
+  }
+  
+  .field {
+    margin-bottom: 1.5rem !important;
+  }
+}
+
+/* ====================================================================
+   CONTRAST & ACCESSIBILITY IMPROVEMENTS
+   ==================================================================== */
+
+/* Ensure proper text contrast */
+#content {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Better focus indicators */
+.field input:focus,
+button:focus {
+  outline: 2px solid var(--primary) !important;
+  outline-offset: 2px !important;
+}
+
+/* Improved disabled states */
+button:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+.field input:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+}
+
+/* ====================================================================
+   CONTENT STRUCTURE FIXES
+   ==================================================================== */
+
+/* Ensure headers don't get clipped */
+.grid > div > h5:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  line-height: 1.4 !important;
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
+  color: var(--on-surface) !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Better content flow */
+.grid > div > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Prevent text overflow */
+#content * {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+/* ====================================================================
+   LOADING STATES & ANIMATIONS
+   ==================================================================== */
+
+/* Smooth transitions for better UX */
+.field,
+.field input,
+.field label,
+button {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Better hover states */
+button:hover:not(:disabled) {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.field.border input:hover:not(:disabled):not(:focus) {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}

@@ -16,7 +16,7 @@ import './components/ui-smart-table.js';
 // Export components for ES module usage
 export { UIComponent } from './components/base/ui-component.js';
 export { UIGrid, UIGridItem } from './components/layout/ui-grid.js';
-export { UILayout, UIFlex, UIFlexItem } from './components/layout/ui-layout.js';
+export { UILayout, UIFlexbox, UIFlex, UIFlexItem } from './components/layout/ui-layout.js';
 export { UIButton } from './components/ui-button.js';
 export { UIInput } from './components/ui-input.js';
 export { UISelect } from './components/ui-select.js';

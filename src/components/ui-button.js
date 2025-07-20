@@ -1,163 +1,220 @@
 import { UIComponent } from './base/ui-component.js';
 
 /**
- * BeerCSS Button Component
- * Material Design button with various styles and features
+ * Professional BeerCSS Button Component
+ * Uses native BeerCSS classes for proper Material Design 3 styling
  * 
- * Usage:
- * <ui-button variant="filled" icon="add">Add Item</ui-button>
- * <ui-button variant="outlined" disabled>Disabled</ui-button>
+ * @example
+ * <ui-button variant="large">Large Button</ui-button>
+ * <ui-button variant="outline" icon="add">Outlined with Icon</ui-button>
+ * <ui-button round icon="favorite"></ui-button>
  */
 export class UIButton extends UIComponent {
   static get observedAttributes() {
-    return ['variant', 'icon', 'icon-position', 'disabled', 'loading', 'size', 'round'];
+    return [
+      'variant', 'icon', 'disabled', 'loading', 'round', 'circle',
+      'href', 'target', 'type', 'form'
+    ];
+  }
+
+  constructor() {
+    super();
+    this._originalContent = '';
+    this._button = null;
+  }
+
+  _shouldBeFocusable() {
+    return !this.getBooleanAttribute('disabled');
+  }
+
+  _getDefaultRole() {
+    return this.getAttribute('href') ? 'link' : 'button';
   }
 
   init() {
-    // Store the original content
-    this.originalContent = this.innerHTML || this.textContent;
+    // Preserve original content
+    this._originalContent = this.innerHTML.trim() || this.textContent.trim() || '';
     
-    this.button = this.createElement('button');
+    // Create button or link using BeerCSS approach
+    const isLink = this.hasAttribute('href');
+    this._button = this.createElement(isLink ? 'a' : 'button');
     
-    // Clear the custom element and add the button
+    // Clear and append
     this.innerHTML = '';
-    this.appendChild(this.button);
+    this.appendChild(this._button);
+  }
+
+  render() {
+    if (!this._button) return;
     
-    // Update button with content and styling
-    this.updateButton();
+    this._updateButtonProperties();
+    this._updateBeerCSSClasses();
+    this._renderContent();
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (this._initialized && oldValue !== newValue) {
-      this.updateButton();
-    }
-  }
+  _bindEvents() {
+    if (!this._button) return;
 
-  bindEvents() {
-    // Forward button events
-    this.button.addEventListener('click', (e) => {
+    this.addEventListener(this._button, 'click', (e) => {
       if (!this.getBooleanAttribute('disabled') && !this.getBooleanAttribute('loading')) {
-        this.emit('click', { originalEvent: e });
+        this.emit('click', { originalEvent: e, value: this._getButtonText() });
       }
     });
 
-    this.button.addEventListener('focus', (e) => {
+    this.addEventListener(this._button, 'focus', (e) => {
       this.emit('focus', { originalEvent: e });
     });
 
-    this.button.addEventListener('blur', (e) => {
+    this.addEventListener(this._button, 'blur', (e) => {
       this.emit('blur', { originalEvent: e });
     });
   }
 
-  getButtonText() {
-    // Get text content from original content, excluding any HTML tags
-    return this.originalContent ? this.originalContent.replace(/<[^>]*>/g, '').trim() : '';
-  }
-
-  updateButton() {
-    let classes = [];
+  _updateButtonProperties() {
+    const isLink = this._button.tagName === 'A';
     
-    // Handle variant
-    const variant = this.getAttribute('variant') || 'filled';
-    if (variant !== 'text') {
-      classes.push(variant); // filled, outlined, tonal
-    }
-
-    // Handle size
-    const size = this.getAttribute('size');
-    if (size && size !== 'medium') {
-      classes.push(size); // small, large
-    }
-
-    // Handle round
-    if (this.getBooleanAttribute('round')) {
-      classes.push('round');
-    }
-
-    // Apply classes
-    this.applyClasses(this.button, classes.join(' '));
-
-    // Handle disabled state
-    this.button.disabled = this.getBooleanAttribute('disabled');
-
-    // Handle loading state
-    const loading = this.getBooleanAttribute('loading');
-    if (loading) {
-      this.button.disabled = true;
-    }
-
-    // Update button content
-    this.renderButtonContent();
-  }
-
-  renderButtonContent() {
-    const icon = this.getAttribute('icon');
-    const iconPosition = this.getAttribute('icon-position') || 'left';
-    const loading = this.getBooleanAttribute('loading');
-    const text = this.getButtonText();
-
-    // Clear button content
-    this.button.innerHTML = '';
-
-    if (loading) {
-      // Show loading spinner
-      const spinner = this.createElement('i', 'material-icons', { 
-        style: 'animation: spin 1s linear infinite;' 
-      });
-      spinner.textContent = 'refresh';
-      this.button.appendChild(spinner);
+    if (isLink) {
+      const href = this.getAttribute('href');
+      if (href) this._button.href = href;
       
-      if (text) {
-        const textSpan = this.createElement('span');
-        textSpan.textContent = text;
-        this.button.appendChild(textSpan);
+      const target = this.getAttribute('target');
+      if (target) this._button.target = target;
+      
+      if (this.getBooleanAttribute('disabled')) {
+        this._button.removeAttribute('href');
+        this._button.setAttribute('aria-disabled', 'true');
       }
     } else {
-      // Handle icon and text
-      if (icon && iconPosition === 'left') {
-        const iconEl = this.createElement('i', 'material-icons');
-        iconEl.textContent = icon;
-        this.button.appendChild(iconEl);
-      }
+      this._button.type = this.getAttribute('type') || 'button';
+      this._button.disabled = this.getBooleanAttribute('disabled') || this.getBooleanAttribute('loading');
+      
+      const form = this.getAttribute('form');
+      if (form) this._button.form = form;
+    }
+  }
 
+  _updateBeerCSSClasses() {
+    const classes = [];
+    
+    // BeerCSS variant classes
+    const variant = this.getAttribute('variant');
+    if (variant) {
+      // Map our variants to BeerCSS classes
+      const variantMap = {
+        'outline': 'border',
+        'outlined': 'border', 
+        'large': 'large',
+        'small': 'small',
+        'medium': '', // default
+        'fill': '', // default filled button
+        'filled': '' // default filled button
+      };
+      
+      if (variantMap[variant] !== undefined) {
+        if (variantMap[variant]) classes.push(variantMap[variant]);
+      }
+    }
+    
+    // BeerCSS modifiers
+    if (this.getBooleanAttribute('round')) classes.push('round');
+    if (this.getBooleanAttribute('circle')) classes.push('circle');
+    
+    // Icon-only button gets circle class automatically
+    if (this._isIconOnly()) {
+      classes.push('circle');
+    }
+    
+    this._button.className = classes.join(' ').trim();
+  }
+
+  _renderContent() {
+    const icon = this.getAttribute('icon');
+    const loading = this.getBooleanAttribute('loading');
+    const text = this._getButtonText();
+
+    // Clear existing content
+    this._button.innerHTML = '';
+
+    if (loading) {
+      // BeerCSS loading spinner
+      const spinner = this.createElement('progress', 'circle small');
+      this._button.appendChild(spinner);
+      
       if (text) {
-        const textSpan = this.createElement('span');
-        textSpan.textContent = text;
-        this.button.appendChild(textSpan);
+        const textSpan = document.createTextNode(' ' + text);
+        this._button.appendChild(textSpan);
+      }
+    } else {
+      // Render icon using BeerCSS Material Icons
+      if (icon) {
+        const iconEl = this.createElement('i');
+        iconEl.textContent = icon;
+        this._button.appendChild(iconEl);
       }
 
-      if (icon && iconPosition === 'right') {
-        const iconEl = this.createElement('i', 'material-icons');
-        iconEl.textContent = icon;
-        this.button.appendChild(iconEl);
-      }
-
-      // Icon-only button
-      if (icon && !text) {
-        const iconEl = this.createElement('i', 'material-icons');
-        iconEl.textContent = icon;
-        this.button.appendChild(iconEl);
-        this.button.classList.add('circle');
+      // Render text
+      if (text) {
+        if (icon) {
+          // Add space between icon and text
+          this._button.appendChild(document.createTextNode(' ' + text));
+        } else {
+          this._button.appendChild(document.createTextNode(text));
+        }
       }
     }
   }
 
-  // Public methods
+  _getButtonText() {
+    return this._originalContent.replace(/<[^>]*>/g, '').trim();
+  }
+
+  _isIconOnly() {
+    return this.getAttribute('icon') && !this._getButtonText();
+  }
+
+  // Public API
   focus() {
-    this.button.focus();
+    if (this._button && !this.getBooleanAttribute('disabled')) {
+      this._button.focus();
+    }
   }
 
   blur() {
-    this.button.blur();
+    if (this._button) {
+      this._button.blur();
+    }
   }
 
   click() {
-    if (!this.getBooleanAttribute('disabled') && !this.getBooleanAttribute('loading')) {
-      this.button.click();
+    if (this._button && !this.getBooleanAttribute('disabled') && !this.getBooleanAttribute('loading')) {
+      this._button.click();
     }
+  }
+
+  get text() {
+    return this._getButtonText();
+  }
+
+  set text(text) {
+    this._originalContent = text;
+    this._scheduleRender();
+  }
+
+  get disabled() {
+    return this.getBooleanAttribute('disabled');
+  }
+
+  set disabled(value) {
+    this.setBooleanAttribute('disabled', value);
+  }
+
+  get loading() {
+    return this.getBooleanAttribute('loading');
+  }
+
+  set loading(value) {
+    this.setBooleanAttribute('loading', value);
   }
 }
 
-// Register component
 customElements.define('ui-button', UIButton);

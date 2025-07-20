@@ -4,6 +4,9 @@
 // Load component library
 import './index.js';
 
+// Load Material Design 3 fixes (re-enabled after fixing component conflicts)
+import './styles/material-design-3-fixes.css';
+
 // Load demo application
 import './demo/app.js';
 

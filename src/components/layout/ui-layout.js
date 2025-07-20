@@ -74,9 +74,9 @@ export class UILayout extends UIComponent {
 
 /**
  * Flexbox Container Component
- * Provides flexbox layout utilities
+ * Provides flexbox layout utilities - matches demo usage
  */
-export class UIFlex extends UIComponent {
+export class UIFlexbox extends UIComponent {
   static get observedAttributes() {
     return ['direction', 'wrap', 'justify', 'align', 'gap'];
   }
@@ -115,6 +115,104 @@ export class UIFlex extends UIComponent {
     const align = this.getAttribute('align');
     if (align) {
       this.style.alignItems = align; // flex-start, center, stretch, etc.
+    }
+
+    // Handle gap
+    const gap = this.getAttribute('gap');
+    if (gap) {
+      this.style.gap = gap;
+    }
+  }
+}
+
+/**
+ * Grid Container Component - matches demo usage (renamed to avoid conflict)
+ */
+export class UILayoutGrid extends UIComponent {
+  static get observedAttributes() {
+    return ['columns', 'gap', 'rows'];
+  }
+
+  init() {
+    this.style.display = 'grid';
+    this.updateStyles();
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (this._initialized && oldValue !== newValue) {
+      this.updateStyles();
+    }
+  }
+
+  updateStyles() {
+    // Handle columns
+    const columns = this.getAttribute('columns');
+    if (columns) {
+      if (columns === 'auto') {
+        this.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
+      } else {
+        this.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+      }
+    } else {
+      this.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
+    }
+
+    // Handle rows
+    const rows = this.getAttribute('rows');
+    if (rows && rows !== 'auto') {
+      this.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+    }
+
+    // Handle gap
+    const gap = this.getAttribute('gap');
+    if (gap) {
+      this.style.gap = gap;
+    }
+  }
+}
+
+/**
+ * Flexbox Container Component (alternative name for demos)
+ */
+export class UIFlex extends UIComponent {
+  static get observedAttributes() {
+    return ['direction', 'wrap', 'justify', 'align', 'gap'];
+  }
+
+  init() {
+    this.style.display = 'flex';
+    this.updateStyles();
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (this._initialized && oldValue !== newValue) {
+      this.updateStyles();
+    }
+  }
+
+  updateStyles() {
+    // Handle flex direction
+    const direction = this.getAttribute('direction');
+    if (direction) {
+      this.style.flexDirection = direction;
+    }
+
+    // Handle flex wrap
+    const wrap = this.getAttribute('wrap');
+    if (wrap) {
+      this.style.flexWrap = wrap;
+    }
+
+    // Handle justify content
+    const justify = this.getAttribute('justify');
+    if (justify) {
+      this.style.justifyContent = justify;
+    }
+
+    // Handle align items
+    const align = this.getAttribute('align');
+    if (align) {
+      this.style.alignItems = align;
     }
 
     // Handle gap
@@ -173,5 +271,6 @@ export class UIFlexItem extends UIComponent {
 
 // Register components
 customElements.define('ui-layout', UILayout);
+customElements.define('ui-flexbox', UIFlexbox);
 customElements.define('ui-flex', UIFlex);
 customElements.define('ui-flex-item', UIFlexItem);
